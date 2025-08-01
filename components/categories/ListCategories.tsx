@@ -61,7 +61,7 @@ export default function ListCategories() {
             <TableCell>{category.name}</TableCell>
             <TableCell>
               <button
-                onClick={() => handleDelete(category?.id!)}
+                onClick={() =>{if(category?.id){handleDelete(category.id)}} }
                 className="text-sm px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
               >
                 Delete

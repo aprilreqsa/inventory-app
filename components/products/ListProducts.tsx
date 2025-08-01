@@ -67,7 +67,7 @@ export default function ListProducts() {
             </TableCell>
             <TableCell>
               <button
-                onClick={() => handleDelete(product?.id!)}
+                onClick={() => {if(product?.id){handleDelete(product.id)} }}
                 className="text-sm px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
               >
                 Delete
