@@ -29,7 +29,7 @@ export default function ListProducts() {
     };
 
     fetchData();
-  }, [products]);
+  }, [products,dispatch]);
   const handleDelete = async (id: string) => {
     const response = await fetch(`/api/products`, {
       method: "DELETE",
