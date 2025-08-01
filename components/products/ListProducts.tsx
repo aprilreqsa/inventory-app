@@ -60,10 +60,10 @@ export default function ListProducts() {
             <TableCell>{product.name}</TableCell>
             <TableCell>{product.description || "No description"}</TableCell>
             <TableCell>
-              {product.price.toLocaleString("id-ID", {
+              {product.price !== undefined ?  product.price.toLocaleString("id-ID", {
                 style: "currency",
                 currency: "IDR",
-              })}
+              }) : "N/A" }
             </TableCell>
             <TableCell>
               <button

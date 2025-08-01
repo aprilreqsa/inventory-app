@@ -11,13 +11,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {  useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCategory } from "@/lib/features/categorySlice";
-import { addSupplier } from "@/lib/features/supplierSlice";
+import { addSupplier, Supplier } from "@/lib/features/supplierSlice";
 
 export default function AddCategory() {
   const dispatch = useDispatch();
 
-  const [supplier, SetSupplier] = useState({
+  const [supplier, SetSupplier] = useState<Supplier>({
     name: "",
     contact: "",
     address: ""
@@ -38,7 +37,7 @@ export default function AddCategory() {
     if (!response.ok) {
       throw new Error("Failed to add product");
     }
-    const data = await response.json();
+    const data : Supplier = await response.json();
     SetSupplier({
         name: "",
         contact: "",

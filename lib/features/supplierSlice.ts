@@ -2,9 +2,9 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export interface Supplier {
     id?: string; 
-    name: string;
-    contact: string;
-    address: string;
+    name?: string;
+    contact?: string;
+    address?: string;
 }
 
 interface SupplierState {

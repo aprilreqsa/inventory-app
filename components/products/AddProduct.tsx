@@ -14,6 +14,8 @@ import { useDispatch } from "react-redux";
 import { addProduct  } from "@/lib/features/productSlice";
 
 import { Product } from "@/lib/features/productSlice";
+import { Category } from "@/lib/features/categorySlice";
+import { Supplier } from "@/lib/features/supplierSlice";
 
 export default function AddProduct() {
   const [selectCategory, setSelectCategory] = useState("");
@@ -25,7 +27,7 @@ export default function AddProduct() {
       if (!response.ok) {
         throw new Error("Failed to fetch categories");
       }
-      const data = await response.json();
+      const data : Category[] = await response.json();
       setCategories(data);
     };
     const fetchSuppliers = async () => {
@@ -33,15 +35,15 @@ export default function AddProduct() {
       if (!response.ok) {
         throw new Error("Failed to fetch suppliers");
       }
-      const data = await response.json();
+      const data : Supplier[] = await response.json();
       setSuppliers(data);
     };
     fetchSuppliers();
     fetchCategories();
   }, []);
-  const [categories, setCategories] = useState([]);
-  const [suppliers, setSuppliers] = useState([]);
-  const [product, SetProduct] = useState({
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [suppliers, setSuppliers] = useState<Supplier[]>([]);
+  const [product, SetProduct] = useState<Product>({
     name: "",
     description: "",
     price: "",

@@ -11,12 +11,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {  useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCategory } from "@/lib/features/categorySlice";
+import { addCategory, Category } from "@/lib/features/categorySlice";
 
 export default function AddCategory() {
   const dispatch = useDispatch();
 
-  const [category, SetCategory] = useState({
+  const [category, SetCategory] = useState<Category>({
     name: "",
     description: "",
   });
@@ -36,7 +36,7 @@ export default function AddCategory() {
     if (!response.ok) {
       throw new Error("Failed to add product");
     }
-    const data = await response.json();
+    const data: Category = await response.json();
     SetCategory({
         name: "",
         description: "",

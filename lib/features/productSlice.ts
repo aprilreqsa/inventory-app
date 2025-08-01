@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Product {
     id?: string;
-    name: string;
+    name?: string;
     description?: string;
-    price: number | string;
-    categoryId: string;
-    supplierId: string;
+    price?: number | string;
+    categoryId?: string;
+    supplierId?: string;
 }
 interface ProductState {
     products: Product[];
