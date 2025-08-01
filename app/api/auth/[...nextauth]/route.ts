@@ -14,8 +14,8 @@ const handler = NextAuth({
             },
             async authorize(credentials){
                 const schema = z.object({
-                    username: z.string().min(5),
-                    password: z.string().min(6),
+                    username: z.string().min(3),
+                    password: z.string().min(3),
                 })
                 const { username, password } = schema.parse(credentials);
                 const user = await prisma.user.findUnique({
