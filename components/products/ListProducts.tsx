@@ -1,6 +1,6 @@
 "use client";
 import { RootState } from "@/lib/store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Product, setProducts } from "@/lib/features/productSlice";
 import {
