@@ -145,7 +145,7 @@ export default function AddProduct() {
                   onChange={handleChangeSelect}
                 >
                   <option value="">Select Category</option>
-                  {categories.map((category: any) => (
+                  {categories.map((category: Category) => (
                     <option key={category.id} value={category.id}>
                       {category.name}
                     </option>
@@ -162,7 +162,7 @@ export default function AddProduct() {
                   onChange={handleChangeSelect}
                 >
                   <option value="">Select Supplier</option>
-                  {suppliers.map((supplier: any) => (
+                  {suppliers.map((supplier: Supplier) => (
                     <option key={supplier.id} value={supplier.id}>
                       {supplier.name}
                     </option>
