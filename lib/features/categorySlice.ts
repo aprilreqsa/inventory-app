@@ -33,7 +33,7 @@ export const categorySlice = createSlice({
             state.categories = action.payload;
         },
         removeCategory: (state, action) => {
-            state.categories = state.categories.filter(category => category.name !== action.payload.name);
+            state.categories = state.categories.filter(category => category.id !== action.payload.id);
         },
         updateCategory: (state, action) => {
             const index = state.categories.findIndex(category => category.id === action.payload.id);

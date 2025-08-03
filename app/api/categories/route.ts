@@ -1,5 +1,6 @@
 import z from "zod";
 import { prisma } from "@/lib/prisma";
+
 export async function POST(req:Request) {
     const body = await req.json();
     const schema = z.object({
@@ -43,21 +44,3 @@ export async function GET() {
     });
 }
 
-export async function DELETE(req: Request) {
-    const body = await req.json();
-    const schema = z.object({
-        id: z.string()
-    });
-    const { id } = schema.parse(body);
-    const category = await prisma.category.delete({
-        where: {
-            id,
-        },
-    });
-    return new Response(JSON.stringify(category), {
-        status: 200,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-}

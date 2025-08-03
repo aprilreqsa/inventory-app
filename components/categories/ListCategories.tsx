@@ -33,8 +33,8 @@ export default function ListCategories() {
 
     fetchData();
   }, [dispatch]);
-  const handleDelete = async (category: Category) => {
-    const response = await fetch(`/api/categories/${category.id}`, {
+  const handleDelete = async (id: string) => {
+    const response = await fetch(`/api/categories/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export default function ListCategories() {
     if (!response.ok) {
       throw new Error("Failed to delete supplier");
     }
-    dispatch(removeCategory(category))
+    dispatch(removeCategory({id}))
   };
   const handleEdit = async(category : Category) => {
     dispatch(setCategory({
@@ -69,7 +69,8 @@ export default function ListCategories() {
             <TableCell>{category.name}</TableCell>
             <TableCell className="space-x-2">
               <button
-                onClick={() => handleDelete(category) }
+                onClick={() => {if(category.id) {
+                  handleDelete(category.id)}}}
                 className="text-sm px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
               >
                 Delete
