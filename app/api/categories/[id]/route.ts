@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma"
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function PATCH(req: Request, context: {params: {id: string;}}){
+export async function PATCH(req: NextRequest, context: {params: {id: string;}}){
     const id = context.params.id
     const body = await req.json()
     const {name, description} = body
@@ -19,7 +19,7 @@ export async function PATCH(req: Request, context: {params: {id: string;}}){
     
 }
 
-export async function DELETE(req: Request, context: {params: {id: string}}) {
+export async function DELETE(req: NextRequest, context: {params: {id: string}}) {
     const id = context.params.id
     
     const category = await prisma.category.delete({
