@@ -43,7 +43,7 @@ export default function ListCategories() {
     if (!response.ok) {
       throw new Error("Failed to delete supplier");
     }
-    dispatch(removeCategory(category.id))
+    dispatch(removeCategory({id: category.id}))
   };
   const handleEdit = async(category : Category) => {
     dispatch(setCategory({

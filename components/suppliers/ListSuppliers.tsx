@@ -35,16 +35,17 @@ export default function ListSuppliers() {
     fetchData();
   }, [dispatch]);
   const handleDelete = async (supplier : Supplier) => {
-    const response = await fetch(`/api/suppliers/${supplier.id}`, {
+    const response = await fetch(`/api/suppliers`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-      }
+      },
+      body: JSON.stringify(supplier)
     });
     if (!response.ok) {
       throw new Error("Failed to delete supplier");
     }
-    dispatch(removeSupplier(supplier))
+    dispatch(removeSupplier({id: supplier.id}))
   };
   const handleEdit = async(supplier : Supplier) =>{
     dispatch(setSupplier({

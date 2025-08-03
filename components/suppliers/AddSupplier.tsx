@@ -50,15 +50,15 @@ export default function AddCategory() {
     dispatch(addSupplier(data));
     setLoading(false)
   };
-  const handleEdit = async(e : React.FormEvent) => {
+  const handleUpdate = async(e : React.FormEvent) => {
     setLoading(true)
     e.preventDefault();
-    const response = await fetch(`/api/suppliers/${supplier.id}`,{
+    const response = await fetch(`/api/suppliers`,{
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({supplier})
+      body: JSON.stringify(supplier)
     })
     if(!response.ok) {
       throw new Error("Failed to update supplier")
@@ -126,7 +126,7 @@ export default function AddCategory() {
         <CardFooter className="flex flex-col gap-2">
           {supplier.id ?
           <Button 
-          onClick={handleEdit}
+          onClick={handleUpdate}
           className="w-full">
             {loading ? "Loading..." : "Update"}
             {loading && <LoaderSpinner />}
