@@ -1,6 +1,6 @@
 "use client";
 import { RootState } from "@/lib/store";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Table,
@@ -16,7 +16,6 @@ import { setSuppliers, Supplier, setSupplier, removeSupplier } from "@/lib/featu
 
 export default function ListSuppliers() {
   const suppliers = useSelector((state: RootState) => state.supplier.suppliers);
-  const supplier = useSelector((state: RootState) => state.supplier.supplier);
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
@@ -26,6 +25,9 @@ export default function ListSuppliers() {
           "Content-Type": "application/json",
         },
       });
+      if(!res.ok) {
+        return Response.json({res})
+      }
       const data: Supplier[] = await res.json();
       dispatch(setSuppliers(data)); // masukkan ke redux
     };

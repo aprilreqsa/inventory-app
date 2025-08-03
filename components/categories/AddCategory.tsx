@@ -62,6 +62,10 @@ export default function AddCategory() {
       },
       body: JSON.stringify(category)
     })
+    if(!response.ok){
+      throw new Error("Failed to update")
+      setLoading(false)
+    }
     dispatch(updateCategory(category))
     dispatch(setCategory({
       id:"",
