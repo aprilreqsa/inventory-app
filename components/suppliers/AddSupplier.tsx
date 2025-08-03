@@ -40,6 +40,7 @@ export default function AddCategory() {
       throw new Error("Failed to add supplier");
     }
     const data : Supplier = await response.json();
+    
     dispatch(setSupplier({
       id:"",
       name:"",
