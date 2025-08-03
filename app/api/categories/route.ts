@@ -1,5 +1,6 @@
 import z from "zod";
 import { prisma } from "@/lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req:Request) {
     const body = await req.json();
@@ -57,4 +58,20 @@ export async function DELETE(req:Request) {
             'Content-Type': 'application/json',
         },
     });
+}
+export async function PATCH(req: NextRequest){
+    const body = await req.json()
+    const {id, name, description} = body
+    const updated = await prisma.category.update({
+        where: {
+            id
+        },
+        data: {
+            name,
+            description
+        }
+    })
+    if(!updated) return NextResponse.json({message: "Category not found"});
+    return NextResponse.json({updated},{status:200})
+    
 }

@@ -55,7 +55,7 @@ export default function AddCategory() {
   const handleUpdate = async(e: React.FormEvent) => {
     setLoading(true)
     e.preventDefault();
-    const response = await fetch(`/api/categories/${category.id}`,{
+    const response = await fetch(`/api/categories`,{
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
