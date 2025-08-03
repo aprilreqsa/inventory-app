@@ -22,7 +22,7 @@ export default function ListSuppliers(){
         };
     
         fetchData();
-      }, [suppliers]);
+      }, [dispatch]);
       const handleDelete = async (id: string) => {
         const response = await fetch(`/api/suppliers`, {
           method: "DELETE",

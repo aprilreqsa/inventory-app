@@ -1,4 +1,6 @@
 "use client"
+import BaseAlert from "@/components/BaseAlert"
+import LoaderSpinner from "@/components/LoaderSpinner"
 import { Button } from "@/components/ui/button"
 import { 
     Card, 
@@ -20,6 +22,12 @@ interface User {
 
 export default  function Page() {
     const router = useRouter()
+    const [loading,setLoading] = useState(false)
+    const [alert,setAlert] = useState({
+        type: "",
+        message:"",
+        isShow: false
+    })
     const [user,setUser] = useState<User>({
         username: "",
         password: ""
@@ -31,6 +39,7 @@ export default  function Page() {
         })
     }
     const handleSubmit = async () => {
+        setLoading(true)
         const response = await fetch('/api/auth/signup', {
             method: 'POST',
             headers: {
@@ -41,11 +50,19 @@ export default  function Page() {
                 password: user.password
             })
         });
+        const res = await response.json()
         if (response.ok) {
             router.push('/signin');
+            setLoading(false)
         } else {
+            setAlert({
+                type:"error",
+                message: res?.error || "Error Registring user",
+                isShow: true
+            })
             // Handle error
             console.error("Error registering user");
+            setLoading(false)
         }
     }
     
@@ -54,6 +71,9 @@ export default  function Page() {
             <CardHeader>
                 <CardTitle>Sign up to our Platform</CardTitle>
                 <CardDescription>Enter Your Username below to register your account</CardDescription>
+                <CardDescription>
+                    {alert.isShow && <BaseAlert alert={alert} />}
+                </CardDescription>
             </CardHeader>
             <CardContent>
                 <form action="">
@@ -87,7 +107,9 @@ export default  function Page() {
                 <Button 
                 onClick={handleSubmit}
                 type="submit" className="w-full">
-                    Register
+                    {loading ? "Loading.." : "Register"}
+                    {loading && <LoaderSpinner />}
+                    
                 </Button>
                 <Button 
                     onClick={()=> router.push('/signin')}

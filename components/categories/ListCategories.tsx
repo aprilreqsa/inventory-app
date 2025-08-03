@@ -14,11 +14,13 @@ import {
 import { Category, setCategories } from "@/lib/features/categorySlice";
 
 export default function ListCategories() {
+  const [loading,setLoading] = useState(false)
   const categories = useSelector(
     (state: RootState) => state.category.categories
   );
   const dispatch = useDispatch();
   useEffect(() => {
+    setLoading(true)
     const fetchData = async () => {
       const res = await fetch("/api/categories", {
         method: "GET",
@@ -31,7 +33,8 @@ export default function ListCategories() {
     };
 
     fetchData();
-  }, [categories]);
+    setLoading(false)
+  }, [dispatch]);
   const handleDelete = async (id: string) => {
     const response = await fetch(`/api/categories`, {
       method: "DELETE",
@@ -55,6 +58,8 @@ export default function ListCategories() {
         </TableRow>
       </TableHeader>
       <TableBody>
+        {loading && <TableRow>Loading...</TableRow>}
+        
         {categories.map((category, index) => (
           <TableRow key={index}>
             <TableCell>{index + 1}</TableCell>
