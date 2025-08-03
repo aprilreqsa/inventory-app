@@ -17,9 +17,10 @@ import { Category } from "@/lib/features/categorySlice";
 import { Supplier } from "@/lib/features/supplierSlice";
 
 export default function AddProduct() {
+  
   const [selectCategory, setSelectCategory] = useState("");
   const [selectSupplier, setSelectSupplier] = useState("");
-  const dispatch = useDispatch();
+  
   useEffect(() => {
     const fetchCategories = async () => {
       const response = await fetch("/api/categories");
@@ -64,7 +65,6 @@ export default function AddProduct() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const productData : Product = {name: product.name, description: product.description, price: Number(product.price), categoryId: selectCategory, supplierId: selectSupplier };
-    console.log("Product Data:", productData);
     
     const response = await fetch("/api/products", {
       method: "POST",
@@ -76,8 +76,6 @@ export default function AddProduct() {
     if (!response.ok) {
       throw new Error("Failed to add product");
     }
-    const data = await response.json();
-    
     SetProduct({
       name: "",
       description: "",

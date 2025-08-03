@@ -1,6 +1,6 @@
 "use client";
 import { RootState } from "@/lib/store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Table,
@@ -14,7 +14,6 @@ import {
 import { Category, removeCategory, setCategories, setCategory } from "@/lib/features/categorySlice";
 
 export default function ListCategories() {
-  const category = useSelector((state: RootState) => state.category.category)
   const categories = useSelector(
     (state: RootState) => state.category.categories
   );
