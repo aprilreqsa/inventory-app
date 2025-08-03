@@ -11,16 +11,15 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
-import { Category, setCategories } from "@/lib/features/categorySlice";
+import { Category, removeCategory, setCategories, setCategory } from "@/lib/features/categorySlice";
 
 export default function ListCategories() {
-  const [loading,setLoading] = useState(false)
+  const category = useSelector((state: RootState) => state.category.category)
   const categories = useSelector(
     (state: RootState) => state.category.categories
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    setLoading(true)
     const fetchData = async () => {
       const res = await fetch("/api/categories", {
         method: "GET",
@@ -33,20 +32,26 @@ export default function ListCategories() {
     };
 
     fetchData();
-    setLoading(false)
   }, [dispatch]);
-  const handleDelete = async (id: string) => {
-    const response = await fetch(`/api/categories`, {
+  const handleDelete = async (category: Category) => {
+    const response = await fetch(`/api/categories/${category.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id }),
+      }
     });
     if (!response.ok) {
       throw new Error("Failed to delete supplier");
     }
+    dispatch(removeCategory(category))
   };
+  const handleEdit = async(category : Category) => {
+    dispatch(setCategory({
+      id: category.id,
+      name: category.name,
+      description: category.description
+    }))
+  }
   return (
     <Table className="max-w-sm">
       <TableCaption>List Categories</TableCaption>
@@ -58,18 +63,22 @@ export default function ListCategories() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {loading && <TableRow>Loading...</TableRow>}
-        
         {categories.map((category, index) => (
           <TableRow key={index}>
             <TableCell>{index + 1}</TableCell>
             <TableCell>{category.name}</TableCell>
-            <TableCell>
+            <TableCell className="space-x-2">
               <button
-                onClick={() =>{if(category?.id){handleDelete(category.id)}} }
+                onClick={() => handleDelete(category) }
                 className="text-sm px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
               >
                 Delete
+              </button>
+              <button
+              onClick={()=> handleEdit(category)}
+              className="text-sm px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+              >
+                Edit
               </button>
             </TableCell>
           </TableRow>

@@ -46,21 +46,3 @@ export async function GET() {
     });
 }
 
-export async function DELETE(req: Request) {
-    const body = await req.json();
-    const schema = z.object({
-        id: z.string()
-    });
-    const { id } = schema.parse(body);
-    const supplier = await prisma.supplier.delete({
-        where: {
-            id,
-        },
-    });
-    return new Response(JSON.stringify(supplier), {
-        status: 200,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-}

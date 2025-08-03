@@ -9,9 +9,16 @@ export interface Supplier {
 
 interface SupplierState {
     suppliers: Supplier[];
+    supplier: Supplier
 }
 const initialState: SupplierState = {
-    suppliers: []
+    suppliers: [],
+    supplier: {
+        id: "",
+        name:"",
+        contact:"",
+        address:""
+    }
 };
 
 export const supplierSlice = createSlice({
@@ -25,15 +32,18 @@ export const supplierSlice = createSlice({
             state.suppliers = action.payload;
         },
         removeSupplier: (state, action) => {
-            state.suppliers = state.suppliers.filter(supplier => supplier.name !== action.payload.name);
+            state.suppliers = state.suppliers.filter(supplier => supplier.id !== action.payload.id);
         },
         updateSupplier: (state, action) => {
-            const index = state.suppliers.findIndex(supplier => supplier.name === action.payload.name);
+            const index = state.suppliers.findIndex(supplier => supplier.id === action.payload.id);
             if (index !== -1) {
                 state.suppliers[index] = action.payload;
             }
+        },
+        setSupplier: (state, action: PayloadAction<Supplier>) => {
+            state.supplier = action.payload
         }
     },
 });
-export const { addSupplier, removeSupplier, updateSupplier, setSuppliers } = supplierSlice.actions;
+export const { addSupplier, removeSupplier, updateSupplier, setSuppliers, setSupplier } = supplierSlice.actions;
 export default supplierSlice.reducer;

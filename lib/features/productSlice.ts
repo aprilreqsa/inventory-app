@@ -10,9 +10,19 @@ export interface Product {
 }
 interface ProductState {
     products: Product[];
+    product: Product;
+    
 }
 const initialState: ProductState = {
-  products: []
+  products: [],
+  product: {
+    id:"",
+    name:"",
+    description:"",
+    price:"",
+    categoryId:"",
+    supplierId:""   
+  }
 };
 
 export const productSlice = createSlice({
@@ -33,6 +43,9 @@ export const productSlice = createSlice({
             if (index !== -1) {
                 state.products[index] = action.payload;
             }
+        },
+        setProduct: (state, action: PayloadAction<Product>) => {
+            state.product = action.payload
         }
     },
 });

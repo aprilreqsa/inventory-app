@@ -9,17 +9,25 @@ export interface Category {
 
 interface CategoryState {
     categories: Category[];
+    category: Category
 }
 
 const initialState: CategoryState = {
-  categories: []
+  categories: [],
+  category: {
+    name: "",
+    description: ""
+  }
 };
 export const categorySlice = createSlice({
     name: "category",
     initialState,
     reducers: {
-        addCategory: (state, action: PayloadAction<Category>) => {
-            state.categories.push(action.payload);
+        setCategory: (state, action: PayloadAction<Category>) => {
+            state.category = action.payload
+        },
+        addCategory: (state, action: PayloadAction<Category>)=> {
+            state.categories.push(action.payload)
         },
         setCategories: (state, action: PayloadAction<Category[]>) => {
             state.categories = action.payload;
@@ -28,7 +36,7 @@ export const categorySlice = createSlice({
             state.categories = state.categories.filter(category => category.name !== action.payload.name);
         },
         updateCategory: (state, action) => {
-            const index = state.categories.findIndex(category => category.name === action.payload.name);
+            const index = state.categories.findIndex(category => category.id === action.payload.id);
             if (index !== -1) {
                 state.categories[index] = action.payload;
             }
@@ -36,5 +44,5 @@ export const categorySlice = createSlice({
     },
 });
 
-export const { addCategory, removeCategory, updateCategory, setCategories } = categorySlice.actions;
+export const { setCategory, removeCategory, updateCategory, setCategories, addCategory } = categorySlice.actions;
 export default categorySlice.reducer;
