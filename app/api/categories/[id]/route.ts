@@ -19,7 +19,7 @@ export async function PATCH(req: NextRequest, {params}: {params: {id: string;}})
     
 }
 
-export async function DELETE(req: Request, context: {params: {id: string;}}) {
+export async function DELETE( context: {params: {id: string;}}) {
     const id = context.params.id
     const category = await prisma.category.delete({
         where: {
