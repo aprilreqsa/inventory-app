@@ -43,4 +43,18 @@ export async function GET() {
         },
     });
 }
-
+export async function DELETE(req:Request) {
+    const body = await req.json()
+    const {id} = body
+    const category = await prisma.category.delete({
+        where: {
+            id
+        }
+    });
+    return new Response(JSON.stringify(category), {
+        status: 200,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+}
