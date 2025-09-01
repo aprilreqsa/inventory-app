@@ -65,6 +65,9 @@ export default function Page() {
     }
   };
   return (
+    <div>
+
+    
     <Card className="w-full max-w-sm m-auto mt-10">
       <CardHeader>
         <CardTitle>Login To Your Account</CardTitle>
@@ -119,5 +122,8 @@ export default function Page() {
         </Button>
       </CardFooter>
     </Card>
+    <p>Username : admin</p>
+    <p>Password : admin</p>
+    </div>
   );
 }

@@ -20,7 +20,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // transactions Transaction[]
+  transactions Transaction[]
 }
 
 model Category {
@@ -54,5 +54,33 @@ model Product {
   category   Category     @relation(fields: [categoryId], references: [id])
   supplier   Supplier?    @relation(fields: [supplierId], references: [id])
 
-  // transactions Transaction[]
+  transactionDetail TransactionDetail[]
+}
+
+model Transaction {
+  id String @id @default(cuid())
+  transactionDate DateTime
+  transactionType TransactionType
+  userId String
+
+  user User @relation(fields: [userId], references: [id])
+  details TransactionDetail[]
+
+  
+}
+model TransactionDetail {
+  id String @id @default(cuid())
+  transactionId String
+  productId String
+  quantity Int
+  priceAtTransaction Float
+
+  transaction Transaction @relation(fields: [transactionId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+  
+}
+
+enum TransactionType{
+  IN
+  OUT
 }
